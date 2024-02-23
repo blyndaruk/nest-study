@@ -4,19 +4,23 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  Logger,
   Param,
   Post,
   Res,
 } from '@nestjs/common';
-import { Response } from 'express';
+import { request, Response } from 'express';
 import { ProductsService } from './products.service';
 
 @Controller('products')
 export class ProductsController {
+  private logger = new Logger(ProductsController.name);
+
   constructor(private readonly productService: ProductsService) {}
 
   @Get()
   index() {
+    this.logger.warn('custom warning');
     // index(@Res() response: Response) {
     // response.status(200).send('vanilla');
     return this.productService.getAllProducts();
